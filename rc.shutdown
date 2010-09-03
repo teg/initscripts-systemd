@@ -20,10 +20,6 @@ if [ -x /bin/domainname ]; then
 	/bin/domainname ""
 fi
 
-if [ -x /etc/rc.local.shutdown ]; then
-	/etc/rc.local.shutdown
-fi
-
 # Terminate all processes
 stat_busy "Sending SIGTERM To Processes"
 run_hook shutdown_prekillall
@@ -42,18 +38,6 @@ stat_busy "Saving System Clock"
 if [ "$TIMEZONE" != "" -a -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
 	/bin/rm -f /etc/localtime
 	/bin/cp "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
-fi
-
-HWCLOCK_PARAMS="--systohc"
-if [ "$HARDWARECLOCK" = "UTC" ]; then
-	HWCLOCK_PARAMS="$HWCLOCK_PARAMS --utc"
-elif [ "$HARDWARECLOCK" = "localtime" ]; then
-	HWCLOCK_PARAMS="$HWCLOCK_PARAMS --localtime"
-else
-	HWCLOCK_PARAMS=""
-fi
-if [ -n "$HWCLOCK_PARAMS" ]; then
-	/sbin/hwclock $HWCLOCK_PARAMS
 fi
 stat_done
 
