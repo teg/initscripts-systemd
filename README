@@ -1,0 +1,12 @@
+Arch Linux initscripts, butchered to run with systemd. The obvious goal here
+is to let systemd do as much as possible. In the current state of the available
+scripts, the following systemd units are necessary:
+
+systemd-random-seed-save.service
+systemd-random-seed-load.service
+sysctl.service
+hwclock-load.service
+hwclock-save.service
+udev.service
+
+The AUR package will enable these for you upon installation.

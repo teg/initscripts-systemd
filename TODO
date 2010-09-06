@@ -1,8 +1,0 @@
-A list of units to be enabled, to replace functionality in various scripts
----------------------------------------
-systemd-random-seed-save.service
-systemd-random-seed-load.service
-sysctl.service
-hwclock-load.service
-hwclock-save.service
-udev.service
