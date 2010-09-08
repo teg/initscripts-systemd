@@ -14,8 +14,6 @@ printhl "Copyright 2007-2010 Aaron Griffin"
 printhl "Distributed under the GNU General Public License (GPL)"
 printsep
 
-run_hook sysinit_start
-
 # anything more serious than KERN_WARNING goes to the console
 # 'verbose' cmdline parameter enables more messages
 if /bin/grep -q " verbose" /proc/cmdline; then
@@ -161,13 +159,11 @@ if [ -x /sbin/fsck ]; then
 	FSCK_OUT=/dev/stdout
 	FSCK_ERR=/dev/stdout
 	FSCK_FD=
-	run_hook sysinit_prefsck
 	/sbin/fsck -A -T -C$FSCK_FD -a -t "$NETFS,noopts=_netdev" $FORCEFSCK >$FSCK_OUT 2>$FSCK_ERR
 	fsckret=$?
 	if [ ${fsckret} -gt 1 ]; then
 		stat_fail
 	fi
-	run_hook sysinit_postfsck
 	if [ $((${fsckret}&2)) -eq 2 ]; then
 		echo
 		echo "********************** REBOOT REQUIRED *********************"
@@ -204,7 +200,6 @@ if [ -x /bin/findmnt -a -e /proc/self/mountinfo ]; then
 else
 	cat /proc/mounts >| /etc/mtab
 fi
-run_hook sysinit_premount
 # now mount all the local filesystems
 /bin/mount -a -t $NETFS -O no_netdev
 stat_done
@@ -286,8 +281,6 @@ for rule in net cd; do
 done
 
 /bin/dmesg >| /var/log/dmesg.log
-
-run_hook sysinit_end
 
 # End of file
 # vim: set ts=2 sw=2 noet:
