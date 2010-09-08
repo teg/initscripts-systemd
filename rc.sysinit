@@ -212,11 +212,8 @@ fi
 stat_done
 
 stat_busy "Removing Leftover Files"
-/bin/rm -f /etc/nologin &>/dev/null
-/bin/rm -f /etc/shutdownpid &>/dev/null
-/bin/rm -f /var/lock/* &>/dev/null
+/bin/rm -f /etc/{nologin,shutdownpid} /var/lock/* /forcefsck &>/dev/null
 /bin/rm -rf /tmp/* /tmp/.* &>/dev/null
-/bin/rm -f /forcefsck &>/dev/null
 (cd /var/run && /usr/bin/find . ! -type d -exec /bin/rm -f -- {} \; )
 : >| /var/run/utmp
 /bin/chmod 0664 /var/run/utmp
