@@ -281,16 +281,13 @@ fi
 set_consolefont
 
 # Adding persistent network/cdrom generated rules
-if [ -f "/dev/.udev/tmp-rules--70-persistent-cd.rules" ]; then
-	stat_busy "Adding persistent cdrom udev rules"
-	/bin/cat /dev/.udev/tmp-rules--70-persistent-cd.rules >> /etc/udev/rules.d/70-persistent-cd.rules
-	stat_done
-fi
-if [ -f "/dev/.udev/tmp-rules--70-persistent-net.rules" ]; then
-	stat_busy "Adding persistent network udev rules"
-	/bin/cat /dev/.udev/tmp-rules--70-persistent-net.rules >> /etc/udev/rules.d/70-persistent-net.rules
-	stat_done
-fi
+for rule in net cd; do
+	if [ -f "/dev/.udev/tmp-rules--70-persistent-$rule.rules" ]; then
+		stat_busy "Adding persistent $rule udev rules"
+		/bin/cat /dev/.udev/tmp-rules--70-persistent-$rule.rules >> /etc/udev/rules.d/70-persistent-$rule.rules
+		stat_done
+	fi
+done
 
 /bin/dmesg >| /var/log/dmesg.log
 
