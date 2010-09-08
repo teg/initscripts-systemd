@@ -8,9 +8,6 @@
 
 run_hook shutdown_start
 
-# avoid staircase effect
-#/bin/stty onlcr
-
 echo " "
 printhl "Initiating Shutdown..."
 echo " "

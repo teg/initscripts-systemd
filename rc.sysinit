@@ -209,8 +209,6 @@ run_hook sysinit_premount
 /bin/mount -a -t $NETFS -O no_netdev
 stat_done
 
-#status "Activating Swap" /sbin/swapon -a
-
 stat_busy "Configuring System Clock"
 if [ "$TIMEZONE" != "" -a -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
 	/bin/rm -f /etc/localtime
@@ -231,8 +229,6 @@ stat_busy "Removing Leftover Files"
 /bin/mkdir /tmp/.ICE-unix && /bin/chmod 1777 /tmp/.ICE-unix
 /bin/mkdir /tmp/.X11-unix && /bin/chmod 1777 /tmp/.X11-unix
 stat_done
-
-#status "Updating Shared Library Links" /sbin/ldconfig
 
 # Set the NIS domain name, if necessary
 [ -f /etc/conf.d/nisdomainname ] && . /etc/conf.d/nisdomainname
