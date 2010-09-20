@@ -23,17 +23,13 @@ else
 fi
 
 # Load modules from the MODULES array defined in rc.conf
-if ! [ "$load_modules" = "off" ]; then
-	if [ -f /proc/modules ]; then
-		stat_busy "Loading Modules"
-		for mod in "${MODULES[@]}"; do
-			if [ "$mod" = "${mod#!}" ]; then
-				/sbin/modprobe $mod
-			fi
-		done
-		stat_done
-	fi
+modules=${MODULES[@]/#\!*/}
+if [[ "$load_modules" != "off" && -f /proc/modules ]] && (( ${#modules[@]} > 0 )); then
+	stat_busy "Loading Modules"
+	/sbin/modprobe -a $modules
+	stat_done
 fi
+unset modules
 
 # If necessary, find md devices and manually assemble RAID arrays
 if [ -f /etc/mdadm.conf -a "$(/bin/grep ^ARRAY /etc/mdadm.conf 2>/dev/null)" ]; then
@@ -55,7 +51,7 @@ if [ "$USELVM" = "yes" -o "$USELVM" = "YES" ]; then
 fi
 
 # Set up non-root encrypted partition mappings
-if [ -f /etc/crypttab -a -n "$(/bin/grep -v ^# /etc/crypttab | /bin/grep -v ^$)" ]; then
+if [ -f /etc/crypttab -a -n "$(/bin/grep -vE "^(#|$)" /etc/crypttab)" ]; then
 	/sbin/modprobe -q dm-mod 2>/dev/null
 	stat_busy "Unlocking encrypted volumes:"
 	csfailed=0
