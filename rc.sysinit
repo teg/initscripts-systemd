@@ -202,8 +202,7 @@ stat_done
 
 stat_busy "Configuring System Clock"
 if [ "$TIMEZONE" != "" -a -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
-	/bin/rm -f /etc/localtime
-	/bin/cp "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
+	/bin/cp --remove-destination "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 fi
 stat_done
 
