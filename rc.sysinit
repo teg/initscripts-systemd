@@ -24,7 +24,7 @@ fi
 
 # Load modules from the MODULES array defined in rc.conf
 modules=${MODULES[@]/#\!*/}
-if [[ "$load_modules" != "off" && -f /proc/modules ]] && (( ${#modules[@]} > 0 )); then
+if [[ "$load_modules" != "off" && -f /proc/modules && $modules ]]; then
 	stat_busy "Loading Modules"
 	/sbin/modprobe -a $modules
 	stat_done
