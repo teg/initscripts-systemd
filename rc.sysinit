@@ -14,14 +14,6 @@ printhl "Copyright 2007-2010 Aaron Griffin"
 printhl "Distributed under the GNU General Public License (GPL)"
 printsep
 
-# anything more serious than KERN_WARNING goes to the console
-# 'verbose' cmdline parameter enables more messages
-if /bin/grep -q " verbose" /proc/cmdline; then
-	/bin/dmesg -n 8
-else
-	/bin/dmesg -n 3
-fi
-
 # Load modules from the MODULES array defined in rc.conf
 modules=${MODULES[@]/#\!*/}
 if [[ "$load_modules" != "off" && -f /proc/modules && $modules ]]; then
@@ -270,8 +262,6 @@ for rule in net cd; do
 		stat_done
 	fi
 done
-
-/bin/dmesg >| /var/log/dmesg.log
 
 # End of file
 # vim: set ts=2 sw=2 noet:
