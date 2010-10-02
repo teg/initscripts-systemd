@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# /etc/rc.sysinit
+#
+
+. /etc/rc.conf
+
+# Load modules from the MODULES array defined in rc.conf
+modules=${MODULES[@]/#\!*/}
+if [[ "$load_modules" != "off" && -f /proc/modules && $modules ]]; then
+	/sbin/modprobe -a $modules
+fi

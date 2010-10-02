@@ -28,9 +28,6 @@ if [ "$TIMEZONE" != "" -a -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
 fi
 stat_done
 
-# removing psmouse module to fix some reboot issues on newer laptops
-/sbin/modprobe -r psmouse >/dev/null 2>&1
-
 # Write to wtmp file before unmounting
 /sbin/halt -w
 
