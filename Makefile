@@ -13,10 +13,11 @@ install:
 		nisdomainname.service \
 		modules-load.service \
 		md-assemble.service \
-		crypttab.service \
-		fsck.service
 		lvm-load.service \
-		fsck.target
+		fsck.target \
+		crypttab.service \
+		fsck.service \
+		timezone.service
 	(
 		cd ${DESTDIR}/lib/systemd/system/sysinit.target.wants && \
 		ln -s ../nisdomainname.service && \
@@ -25,6 +26,7 @@ install:
 		ln -s ../lvm-load.service
 		ln -s ../crypttab.service
 		ln -s ../fsck.service
+		ln -s ../timezone.service
 	)
 	( cd ${DESTDIR}/lib/systemd/system/local-fs.target.wants && \
 		ln -sf ../fsck.target )

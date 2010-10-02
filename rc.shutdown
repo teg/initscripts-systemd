@@ -21,13 +21,6 @@ stat_busy "Sending SIGKILL To Processes"
 /bin/sleep 1
 stat_done
 
-stat_busy "Saving System Clock"
-if [ "$TIMEZONE" != "" -a -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
-	/bin/rm -f /etc/localtime
-	/bin/cp "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
-fi
-stat_done
-
 # Write to wtmp file before unmounting
 /sbin/halt -w
 

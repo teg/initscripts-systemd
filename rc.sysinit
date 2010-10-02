@@ -14,12 +14,6 @@ printhl "Copyright 2007-2010 Aaron Griffin"
 printhl "Distributed under the GNU General Public License (GPL)"
 printsep
 
-stat_busy "Configuring System Clock"
-if [ "$TIMEZONE" != "" -a -e "/usr/share/zoneinfo/$TIMEZONE" ]; then
-	/bin/cp --remove-destination "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
-fi
-stat_done
-
 stat_busy "Removing Leftover Files"
 /bin/rm -f /etc/{nologin,shutdownpid} /forcefsck &>/dev/null
 stat_done
