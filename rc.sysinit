@@ -14,11 +14,6 @@ printhl "Copyright 2007-2010 Aaron Griffin"
 printhl "Distributed under the GNU General Public License (GPL)"
 printsep
 
-# If necessary, find md devices and manually assemble RAID arrays
-if [ -f /etc/mdadm.conf -a "$(/bin/grep ^ARRAY /etc/mdadm.conf 2>/dev/null)" ]; then
-	status "Activating RAID arrays" /sbin/mdadm --assemble --scan
-fi
-
 if [ "$USELVM" = "yes" -o "$USELVM" = "YES" ]; then
 	if [ -x /sbin/lvm -a -d /sys/block ]; then
 		# Kernel 2.6.x, LVM2 groups
