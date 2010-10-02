@@ -6,4 +6,7 @@ install:
 		poweroff.service \
 		halt.service \
 		reboot.service \
-		sysinit.service
+		sysinit.service \
+		nisdomainname.service
+	( cd ${DESTDIR}/lib/systemd/system/sysinit.target.wants && \
+		ln -s ../nisdomainname.service )

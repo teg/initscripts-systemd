@@ -10,11 +10,6 @@ echo " "
 printhl "Initiating Shutdown..."
 echo " "
 
-# avoid NIS hanging syslog-ng on shutdown by unsetting the domainname
-if [ -x /bin/domainname ]; then
-	/bin/domainname ""
-fi
-
 # Terminate all processes
 stat_busy "Sending SIGTERM To Processes"
 /sbin/killall5 -15 &> /dev/null

@@ -195,12 +195,6 @@ stat_busy "Removing Leftover Files"
 /bin/rm -f /etc/{nologin,shutdownpid} /forcefsck &>/dev/null
 stat_done
 
-# Set the NIS domain name, if necessary
-[ -f /etc/conf.d/nisdomainname ] && . /etc/conf.d/nisdomainname
-if [ "$NISDOMAINNAME" != "" ]; then
-	status "Setting NIS Domain Name: $NISDOMAINNAME" /bin/nisdomainname $NISDOMAINNAME
-fi
-
 status "Updating Module Dependencies" /sbin/depmod -A
 
 # Adding persistent network/cdrom generated rules
