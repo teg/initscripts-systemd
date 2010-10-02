@@ -3,7 +3,8 @@ install:
 		rc.shutdown \
 		rc.sysinit \
 		modules-load \
-		crypttab
+		crypttab \
+		fsck
 	install -m644 -t ${DESTDIR}/lib/systemd/system \
 		poweroff.service \
 		halt.service \
@@ -12,8 +13,10 @@ install:
 		nisdomainname.service \
 		modules-load.service \
 		md-assemble.service \
+		crypttab.service \
+		fsck.service
 		lvm-load.service \
-		crypttab.service
+		fsck.target
 	(
 		cd ${DESTDIR}/lib/systemd/system/sysinit.target.wants && \
 		ln -s ../nisdomainname.service && \
@@ -21,4 +24,7 @@ install:
 		ln -s ../md-assemble.service
 		ln -s ../lvm-load.service
 		ln -s ../crypttab.service
+		ln -s ../fsck.service
 	)
+	( cd ${DESTDIR}/lib/systemd/system/local-fs.target.wants && \
+		ln -sf ../fsck.target )
