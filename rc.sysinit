@@ -14,20 +14,6 @@ printhl "Copyright 2007-2010 Aaron Griffin"
 printhl "Distributed under the GNU General Public License (GPL)"
 printsep
 
-if [ "$USELVM" = "yes" -o "$USELVM" = "YES" ]; then
-	if [ -x /sbin/lvm -a -d /sys/block ]; then
-		# Kernel 2.6.x, LVM2 groups
-		/sbin/modprobe -q dm-mod 2>/dev/null
-		stat_busy "Activating LVM2 groups"
-		/sbin/lvm vgchange --ignorelockingfailure -a y >/dev/null
-		if [ $? -ne 0 ]; then
-			stat_fail
-		else
-			stat_done
-		fi
-	fi
-fi
-
 # Set up non-root encrypted partition mappings
 if [ -f /etc/crypttab -a -n "$(/bin/grep -vE "^(#|$)" /etc/crypttab)" ]; then
 	/sbin/modprobe -q dm-mod 2>/dev/null

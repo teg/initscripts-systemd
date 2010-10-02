@@ -10,10 +10,12 @@ install:
 		sysinit.service \
 		nisdomainname.service \
 		modules-load.service \
-		md-assemble.service
+		md-assemble.service \
+		lvm-load.service
 	(
 		cd ${DESTDIR}/lib/systemd/system/sysinit.target.wants && \
 		ln -s ../nisdomainname.service && \
 		ln -s ../modules-load.service 
 		ln -s ../md-assemble.service
+		ln -s ../lvm-load.service
 	)
