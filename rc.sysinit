@@ -18,8 +18,6 @@ stat_busy "Removing Leftover Files"
 /bin/rm -f /etc/{nologin,shutdownpid} /forcefsck &>/dev/null
 stat_done
 
-status "Updating Module Dependencies" /sbin/depmod -A
-
 # Adding persistent network/cdrom generated rules
 for rule in net cd; do
 	if [ -f "/dev/.udev/tmp-rules--70-persistent-$rule.rules" ]; then

@@ -17,7 +17,8 @@ install:
 		fsck.target \
 		crypttab.service \
 		fsck.service \
-		timezone.service
+		timezone.service \
+		depmod.service
 	(
 		cd ${DESTDIR}/lib/systemd/system/sysinit.target.wants && \
 		ln -s ../nisdomainname.service && \
@@ -27,6 +28,7 @@ install:
 		ln -s ../crypttab.service
 		ln -s ../fsck.service
 		ln -s ../timezone.service
+		ln -s ../depmod.service
 	)
 	( cd ${DESTDIR}/lib/systemd/system/local-fs.target.wants && \
 		ln -sf ../fsck.target )
