@@ -1,7 +1,6 @@
 install:
 	install -m755 -t ${DESTDIR}/lib/systemd/ \
 		rc.shutdown \
-		rc.sysinit \
 		modules-load \
 		crypttab \
 		fsck
@@ -9,7 +8,6 @@ install:
 		poweroff.service \
 		halt.service \
 		reboot.service \
-		sysinit.service \
 		nisdomainname.service \
 		modules-load.service \
 		md-assemble.service \
@@ -19,7 +17,8 @@ install:
 		fsck.service \
 		timezone.service \
 		depmod.service \
-		leftover.service
+		leftover.service \
+		sysinit.target
 	(
 		cd ${DESTDIR}/lib/systemd/system/sysinit.target.wants && \
 		ln -s ../nisdomainname.service && \

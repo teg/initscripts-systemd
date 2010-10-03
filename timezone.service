@@ -8,7 +8,7 @@
 [Unit]
 Description=Set Timezone
 DefaultDependencies=no
-Before=sysinit.target sysinit.service
+Before=sysinit.target
 After=remount-rootfs.service
 Requires=remount-rootfs.service
 

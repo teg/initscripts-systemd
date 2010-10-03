@@ -9,7 +9,7 @@
 Description=File system check
 DefaultDependencies=no
 After=crypttab.service
-Before=sysinit.target sysinit.service
+Before=sysinit.target
 
 [Service]
 ExecStart=/lib/systemd/fsck

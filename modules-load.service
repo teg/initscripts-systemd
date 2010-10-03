@@ -9,7 +9,7 @@
 Description=Load modules
 DefaultDependencies=no
 Conflicts=shutdown.target
-Before=sysinit.target sysinit.service shutdown.target
+Before=sysinit.target shutdown.target
 
 [Service]
 ExecStart=/lib/systemd/modules-load
