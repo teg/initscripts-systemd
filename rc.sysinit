@@ -14,10 +14,6 @@ printhl "Copyright 2007-2010 Aaron Griffin"
 printhl "Distributed under the GNU General Public License (GPL)"
 printsep
 
-stat_busy "Removing Leftover Files"
-/bin/rm -f /etc/{nologin,shutdownpid} /forcefsck &>/dev/null
-stat_done
-
 # Adding persistent network/cdrom generated rules
 for rule in net cd; do
 	if [ -f "/dev/.udev/tmp-rules--70-persistent-$rule.rules" ]; then
