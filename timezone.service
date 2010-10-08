@@ -14,7 +14,7 @@ Requires=remount-rootfs.service
 
 [Service]
 EnvironmentFile=/etc/rc.conf
-ExecStart=/bin/cp --remove-destination /usr/share/zoneinfo/$TIMEZONE /etc/localtime
-ExecStop=/bin/cp --remove-destination /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+ExecStart=/bin/cp --remove-destination /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
+ExecStop=/bin/cp --remove-destination /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
 Type=oneshot
 RemainAfterExit=yes
