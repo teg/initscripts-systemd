@@ -12,6 +12,5 @@ After=md-assemble.service
 Before=sysinit.target
 
 [Service]
-ExecStartPre=/sbin/modprobe dm-mod
-ExecStart=-/sbin/mdadm --assemble --scan
+ExecStart=-/sbin/lvm vgchange --ignorelockingfailure -a y
 Type=oneshot
