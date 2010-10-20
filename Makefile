@@ -1,10 +1,9 @@
 SERVICES = ${wildcard *.service}
 TARGETS  = ${wildcard *.target}
-SCRIPTS  = rc.shutdown modules-load crypttab fsck
+SCRIPTS  = modules-load crypttab
 
 makedirs:
 	@install -vd ${DESTDIR}/lib/systemd/system/sysinit.target.wants \
-	            ${DESTDIR}/lib/systemd/system/local-fs.target.wants \
 	            ${DESTDIR}/lib/systemd/system
 
 install: makedirs
@@ -16,9 +15,5 @@ install: makedirs
 	  ln -vs ../md-assemble.service && \
 	  ln -vs ../lvm-load.service && \
 	  ln -vs ../crypttab.service && \
-	  ln -vs ../fsck.service && \
 	  ln -vs ../timezone.service && \
-	  ln -vs ../depmod.service && \
-	  ln -vs ../leftover.service )
-	@( cd ${DESTDIR}/lib/systemd/system/local-fs.target.wants && \
-		ln -vs ../fsck.target )
+	  ln -vs ../depmod.service )
