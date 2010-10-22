@@ -15,7 +15,5 @@ Before=sysinit.target shutdown.target emergency.service emergency.target
 ExecStart=/bin/domainname $NISDOMAINNAME
 ExecStop=/bin/domainname \"\"
 EnvironmentFile=/etc/conf.d/nisdomainname
+Type=oneshot
 RemainAfterExit=yes
-
-[Install]
-WantedBy=sysinit.target
