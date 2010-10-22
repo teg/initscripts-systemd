@@ -10,6 +10,9 @@ Description=Set up non-root encrypted partition mappings
 DefaultDependencies=no
 After=lvm-load.service
 Before=sysinit.target
+ConditionPathExists=/sbin/cryptsetup
+ConditionPathExists=/usr/sbin/cryptsetup
+ConditionPathExists=/sbin/cryptsetup.static
 
 [Service]
 ExecStart=/lib/systemd/crypttab

@@ -10,7 +10,8 @@ Description=Activate LVM
 DefaultDependencies=no
 After=md-assemble.service
 Before=sysinit.target
+ConditionPathExists=/sbin/vgchange
 
 [Service]
-ExecStart=-/sbin/lvm vgchange --ignorelockingfailure -a y
+ExecStart=/sbin/vgchange --sysinit -a y
 Type=oneshot

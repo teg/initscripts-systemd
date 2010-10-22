@@ -10,7 +10,8 @@ Description=Assemble RAID arrays
 DefaultDependencies=no
 After=arch-modules-load.service systemd-modules-load.service
 Before=sysinit.target
+ConditionPathExists=/sbin/mdadm
 
 [Service]
-ExecStart=-/sbin/mdadm --assemble --scan
+ExecStart=/sbin/mdadm --assemble --scan
 Type=oneshot
