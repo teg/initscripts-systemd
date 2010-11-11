@@ -1,6 +1,6 @@
 SERVICES = ${wildcard *.service}
 TARGETS  = ${wildcard *.target}
-SCRIPTS  = modules-load crypttab
+SCRIPTS  = modules-load
 
 makedirs:
 	@install -vd ${DESTDIR}/lib/systemd/system/sysinit.target.wants \
@@ -14,6 +14,5 @@ install: makedirs
 	  ln -vsf ../modules-load.service && \
 	  ln -vsf ../md-assemble.service && \
 	  ln -vsf ../lvm-load.service && \
-	  ln -vsf ../crypttab.service && \
 	  ln -vsf ../timezone.service && \
 	  ln -vsf ../depmod.service )
