@@ -10,6 +10,7 @@ Description=Sets the NIS Domain Name
 DefaultDependencies=no
 Conflicts=shutdown.target
 Before=sysinit.target shutdown.target emergency.service emergency.target
+ConditionPathExists=/etc/conf.d/nisdomainname
 
 [Service]
 ExecStart=/bin/domainname $NISDOMAINNAME
