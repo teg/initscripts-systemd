@@ -6,15 +6,10 @@
 #  (at your option) any later version.
 
 [Unit]
-Description=Set Timezone
+Description=Apply Arch specific settings
 DefaultDependencies=no
-Before=sysinit.target
-After=remount-rootfs.service
-Requires=remount-rootfs.service
+Before=shutdown.target
 
 [Service]
-EnvironmentFile=/etc/rc.conf
-ExecStart=/bin/cp --remove-destination /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
-ExecStop=/bin/cp --remove-destination /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
+ExecStart=/lib/systemd/arch-settings
 Type=oneshot
-RemainAfterExit=yes

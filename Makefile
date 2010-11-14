@@ -1,10 +1,11 @@
 SERVICES = ${wildcard *.service}
 TARGETS  = ${wildcard *.target}
-SCRIPTS  = modules-load
+SCRIPTS  = modules-load arch-settings
 
 makedirs:
 	@install -vd ${DESTDIR}/lib/systemd/system/sysinit.target.wants \
-	            ${DESTDIR}/lib/systemd/system
+	             ${DESTDIR}/lib/systemd/system/shutdown.target.wants \
+	             ${DESTDIR}/lib/systemd/system
 
 install: makedirs
 	@install -vm755 -t ${DESTDIR}/lib/systemd/ ${SCRIPTS}
@@ -14,5 +15,6 @@ install: makedirs
 	  ln -vsf ../modules-load.service && \
 	  ln -vsf ../md-assemble.service && \
 	  ln -vsf ../lvm-load.service && \
-	  ln -vsf ../timezone.service && \
 	  ln -vsf ../depmod.service )
+	@( cd ${DESTDIR}/lib/systemd/system/shutdown.target.wants && \
+	  ln -vsf ../arch-settings.service )

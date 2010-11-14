@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# /lib/systemd/arch-settings
+#
+
+. /etc/rc.conf
+
+# Update timezone if: The timezone is set in rc.conf, the corresponding zoneinfo file exists and rc.conf has been changed since the timezone was last updated
+if [[ "$TIMEZONE" != "" && -e "/usr/share/zoneinfo/$TIMEZONE" && "/etc/rc.conf" -nt "/etc/localtime" ]]; then
+	/bin/rm -f /etc/localtime
+	/bin/cp "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
+fi
+
+#Update locale settings if rc.conf has been updated since locale.sh was last updated
+if [[ "/etc/rc.conf" -nt "/etc/profile.d/locale.sh" ]]; then
+	# Flush old locale settings
+	: >| /etc/profile.d/locale.sh
+	/bin/chmod 755 /etc/profile.d/locale.sh
+	# Set user defined locale
+	[ -z "$LOCALE" ] && LOCALE="en_US"
+	echo "export LANG=$LOCALE" >>/etc/profile.d/locale.sh
+
+	# the $CONSOLE check helps us avoid this when running scripts from cron
+	if echo "$LOCALE" | /bin/grep -qi utf ; then
+		echo 'if [ "$CONSOLE" = "" -a "$TERM" = "linux" -a -t 1 ]; then printf "\033%%G"; fi' >>/etc/profile.d/locale.sh
+	else
+		echo 'if [ "$CONSOLE" = "" -a "$TERM" = "linux" -a -t 1 ]; then printf "\033%%@"; fi' >>/etc/profile.d/locale.sh
+	fi
+fi
+
+# Adding persistent network/cdrom generated rules (this should probably be done differently, upstream specifically recomends against relying on /dev/.udev)
+if [ -f "/dev/.udev/tmp-rules--70-persistent-cd.rules" ]; then
+	/bin/cat /dev/.udev/tmp-rules--70-persistent-cd.rules >> /etc/udev/rules.d/70-persistent-cd.rules
+fi
+if [ -f "/dev/.udev/tmp-rules--70-persistent-net.rules" ]; then
+	/bin/cat /dev/.udev/tmp-rules--70-persistent-net.rules >> /etc/udev/rules.d/70-persistent-net.rules
+fi
