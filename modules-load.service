@@ -14,6 +14,5 @@ After=systemd-readahead-collect.service systemd-readahead-replay.service
 
 [Service]
 ExecStart=/lib/systemd/modules-load
-ExecStop=/sbin/modprobe -r psmouse
 RemainAfterExit=yes
 Type=oneshot
