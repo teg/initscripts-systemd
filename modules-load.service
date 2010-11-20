@@ -10,6 +10,7 @@ Description=Load modules
 DefaultDependencies=no
 Conflicts=shutdown.target
 Before=sysinit.target shutdown.target
+After=systemd-readahead-collect.service systemd-readahead-replay.service
 
 [Service]
 ExecStart=/lib/systemd/modules-load
