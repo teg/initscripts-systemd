@@ -1,2 +1,21 @@
 Arch Linux initscripts, butchered to run with systemd. The obvious goal here
 is to let systemd do as much as possible.
+
+rc.sysinit
+----------
+Sequentially:
+1) RAID
+2) LVM
+	TODO: Both RAID and LVM need testers. The tools do not support hotplugging, so we might need to add some more synchronisation points to avoid races
+
+Independently:
+load modules: load the modules defined in rc.conf (TODO: incorporate this into arch-settings below)
+nisdomainname: set domainname if the configuration file exists (TODO: can this be removed? what do other distros do?)
+
+After root is mounted rw:
+depmod (TODO: is this needed? how do other distros do this?)
+
+rc.shutdown
+-----------
+arch-settings: parses and saves arch specific settings (e.g. rc.conf) in their respective distro independent places (rather than doing it on boot)
+	TODO: add support for loading of modules and blacklisting of modules so load-modules.sh and similar magic is not needed.
