@@ -1,6 +1,6 @@
 SERVICES = ${wildcard *.service}
 TARGETS  = ${wildcard *.target}
-SCRIPTS  = modules-load arch-settings
+SCRIPTS  = arch-persistent-settings
 
 makedirs:
 	@install -vd ${DESTDIR}/lib/systemd/system/sysinit.target.wants \
@@ -12,9 +12,8 @@ install: makedirs
 	@install -vm644 -t ${DESTDIR}/lib/systemd/system ${SERVICES} ${TARGETS}
 	@( cd ${DESTDIR}/lib/systemd/system/sysinit.target.wants && \
 	  ln -vsf ../nisdomainname.service && \
-	  ln -vsf ../modules-load.service && \
 	  ln -vsf ../md-assemble.service && \
 	  ln -vsf ../lvm-load.service && \
 	  ln -vsf ../depmod.service )
 	@( cd ${DESTDIR}/lib/systemd/system/shutdown.target.wants && \
-	  ln -vsf ../arch-settings.service )
+	  ln -vsf ../arch-persistent-settings.service )
