@@ -13,7 +13,7 @@ install: makedirs
 	@( cd ${DESTDIR}/lib/systemd/system/sysinit.target.wants && \
 	  ln -vsf ../nisdomainname.service && \
 	  ln -vsf ../md-assemble.service && \
-	  ln -vsf ../lvm-load.service && \
+	  ln -vsf ../lvm-activate.service && \
 	  ln -vsf ../depmod.service )
 	@( cd ${DESTDIR}/lib/systemd/system/shutdown.target.wants && \
 	  ln -vsf ../arch-persistent-settings.service )
