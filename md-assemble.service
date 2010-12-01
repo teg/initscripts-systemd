@@ -9,6 +9,7 @@
 Description=Assemble RAID arrays
 DefaultDependencies=no
 Before=sysinit.target
+After=udev-settle.service
 ConditionPathExists=/sbin/mdadm
 
 [Service]

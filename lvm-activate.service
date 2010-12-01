@@ -8,7 +8,7 @@
 [Unit]
 Description=Activate LVM
 DefaultDependencies=no
-After=md-assemble.service
+After=md-assemble.service udev-settle.service
 Before=sysinit.target
 ConditionPathExists=/sbin/vgchange
 
