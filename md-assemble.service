@@ -10,8 +10,8 @@ Description=Assemble RAID arrays
 DefaultDependencies=no
 Before=sysinit.target
 After=udev-settle.service
-ConditionPathExists=/sbin/mdadm
+ConditionPathExists=/sbin/mdassemble
 
 [Service]
-ExecStart=/sbin/mdadm --assemble --scan
+ExecStart=/sbin/mdassemble --scan
 Type=oneshot
