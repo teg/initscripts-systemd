@@ -11,16 +11,6 @@ if [[ "$TIMEZONE" != "" && -e "/usr/share/zoneinfo/$TIMEZONE" && "/etc/rc.conf" 
 	/bin/cp "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 fi
 
-# Update locale settings if rc.conf has been updated since locale.sh was last updated
-if [[ "/etc/rc.conf" -nt "/etc/profile.d/locale.sh" ]]; then
-	# Flush old locale settings
-	: >| /etc/profile.d/locale.sh
-	/bin/chmod 755 /etc/profile.d/locale.sh
-	# Set user defined locale
-	[ -z "$LOCALE" ] && LOCALE="en_US"
-	echo "export LANG=$LOCALE" >>/etc/profile.d/locale.sh
-fi
-
 # Adding persistent network/cdrom generated rules (this should probably be done differently, upstream specifically recomends against relying on /dev/.udev)
 if [ -f "/dev/.udev/tmp-rules--70-persistent-cd.rules" ]; then
 	/bin/cat /dev/.udev/tmp-rules--70-persistent-cd.rules >> /etc/udev/rules.d/70-persistent-cd.rules
