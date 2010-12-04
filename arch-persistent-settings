@@ -19,13 +19,6 @@ if [[ "/etc/rc.conf" -nt "/etc/profile.d/locale.sh" ]]; then
 	# Set user defined locale
 	[ -z "$LOCALE" ] && LOCALE="en_US"
 	echo "export LANG=$LOCALE" >>/etc/profile.d/locale.sh
-
-	# the $CONSOLE check helps us avoid this when running scripts from cron
-	if echo "$LOCALE" | /bin/grep -qi utf ; then
-		echo 'if [ "$CONSOLE" = "" -a "$TERM" = "linux" -a -t 1 ]; then printf "\033%%G"; fi' >>/etc/profile.d/locale.sh
-	else
-		echo 'if [ "$CONSOLE" = "" -a "$TERM" = "linux" -a -t 1 ]; then printf "\033%%@"; fi' >>/etc/profile.d/locale.sh
-	fi
 fi
 
 # Adding persistent network/cdrom generated rules (this should probably be done differently, upstream specifically recomends against relying on /dev/.udev)
