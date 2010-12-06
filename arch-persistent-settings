@@ -43,7 +43,7 @@ if [[ "/etc/rc.conf" -nt "/etc/modprobe.d/blacklist.sys.conf" ]]; then
 fi
 
 
-# Build module blacklist if rc.conf has been updated since blacklist.sys.conf was last updated
+# Build module list if rc.conf has been updated since modules-load.d/rc.conf was last updated
 if [[ "/etc/rc.conf" -nt "/etc/modules-load.d/rc.conf" ]]; then
 
 	MODS=""
