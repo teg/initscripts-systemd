@@ -9,8 +9,7 @@
 # zoneinfo file exists and rc.conf has been changed since the timezone was last
 # updated
 if [[ -f /usr/share/zoneinfo/$TIMEZONE && /etc/rc.conf -nt /etc/localtime ]]; then
-	/bin/rm -f /etc/localtime
-	/bin/cp "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
+	/bin/cp --remove-destination "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 fi
 
 # Adding persistent network/cdrom generated rules (this should probably be done
