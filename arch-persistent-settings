@@ -14,14 +14,11 @@ fi
 
 # Adding persistent network/cdrom generated rules (this should probably be done
 # differently, upstream specifically recomends against relying on /dev/.udev)
-if [[ -f /dev/.udev/tmp-rules--70-persistent-cd.rules ]]; then
-	/bin/cat /dev/.udev/tmp-rules--70-persistent-cd.rules >> \
-		/etc/udev/rules.d/70-persistent-cd.rules
-fi
-if [[ -f /dev/.udev/tmp-rules--70-persistent-net.rules ]]; then
-	/bin/cat /dev/.udev/tmp-rules--70-persistent-net.rules >> \
-		/etc/udev/rules.d/70-persistent-net.rules
-fi
+for rulesfile in 70-persistent-{cd,net}.rules; do
+	if [[ -f /dev/.udev/tmp-rules--$rulesfile ]]; then
+		/bin/cat /dev/.udev/tmp-rules--$rulesfile >> /etc/udev/rules.d/$rulesfile
+	fi
+done
 
 # Build module blacklist if rc.conf has been updated since blacklist.sys.conf
 # was last updated
