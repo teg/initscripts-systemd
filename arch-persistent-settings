@@ -5,21 +5,27 @@
 
 . /etc/rc.conf
 
-# Update timezone if: The timezone is set in rc.conf, the corresponding zoneinfo file exists and rc.conf has been changed since the timezone was last updated
+# Update timezone if: The timezone is set in rc.conf, the corresponding
+# zoneinfo file exists and rc.conf has been changed since the timezone was last
+# updated
 if [[ -f /usr/share/zoneinfo/$TIMEZONE && /etc/rc.conf -nt /etc/localtime ]]; then
 	/bin/rm -f /etc/localtime
 	/bin/cp "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 fi
 
-# Adding persistent network/cdrom generated rules (this should probably be done differently, upstream specifically recomends against relying on /dev/.udev)
+# Adding persistent network/cdrom generated rules (this should probably be done
+# differently, upstream specifically recomends against relying on /dev/.udev)
 if [[ -f /dev/.udev/tmp-rules--70-persistent-cd.rules ]]; then
-	/bin/cat /dev/.udev/tmp-rules--70-persistent-cd.rules >> /etc/udev/rules.d/70-persistent-cd.rules
+	/bin/cat /dev/.udev/tmp-rules--70-persistent-cd.rules >> \
+		/etc/udev/rules.d/70-persistent-cd.rules
 fi
 if [[ -f /dev/.udev/tmp-rules--70-persistent-net.rules ]]; then
-	/bin/cat /dev/.udev/tmp-rules--70-persistent-net.rules >> /etc/udev/rules.d/70-persistent-net.rules
+	/bin/cat /dev/.udev/tmp-rules--70-persistent-net.rules >> \
+		/etc/udev/rules.d/70-persistent-net.rules
 fi
 
-# Build module blacklist if rc.conf has been updated since blacklist.sys.conf was last updated
+# Build module blacklist if rc.conf has been updated since blacklist.sys.conf
+# was last updated
 if [[ /etc/rc.conf -nt /etc/modprobe.d/blacklist.sys.conf ]]; then
 
 	/bin/mkdir -p /etc/modprobe.d
@@ -32,7 +38,8 @@ if [[ /etc/rc.conf -nt /etc/modprobe.d/blacklist.sys.conf ]]; then
 
 fi
 
-# Build module list if rc.conf has been updated since modules-load.d/rc.conf was last updated
+# Build module list if rc.conf has been updated since modules-load.d/rc.conf
+# was last updated
 if [[ /etc/rc.conf -nt /etc/modules-load.d/rc.conf ]]; then
 
 	/bin/mkdir -p /etc/modules-load.d
@@ -44,3 +51,5 @@ if [[ /etc/rc.conf -nt /etc/modules-load.d/rc.conf ]]; then
 	done
 
 fi
+
+# vim: set noet ts=2 sw=2:
