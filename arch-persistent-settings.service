@@ -15,3 +15,6 @@ Before=shutdown.target
 [Service]
 ExecStart=/lib/systemd/arch-persistent-settings
 Type=oneshot
+
+[Install]
+WantedBy=shutdown.target
