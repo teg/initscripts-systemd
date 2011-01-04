@@ -15,3 +15,6 @@ ConditionPathExists=/sbin/vgchange
 [Service]
 ExecStart=/sbin/vgchange --sysinit -a y
 Type=oneshot
+
+[Install]
+WantedBy=sysinit.target

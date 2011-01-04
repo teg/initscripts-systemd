@@ -15,3 +15,6 @@ Requires=remount-rootfs.service
 [Service]
 ExecStart=/sbin/depmod -A
 Type=oneshot
+
+[Install]
+WantedBy=sysinit.target

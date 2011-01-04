@@ -15,3 +15,6 @@ ConditionPathExists=/sbin/mdassemble
 [Service]
 ExecStart=/sbin/mdassemble --scan
 Type=oneshot
+
+[Install]
+WantedBy=sysinit.target

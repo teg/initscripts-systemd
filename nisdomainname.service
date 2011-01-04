@@ -17,3 +17,6 @@ ExecStop=/bin/domainname \"\"
 EnvironmentFile=/etc/conf.d/nisdomainname
 Type=oneshot
 RemainAfterExit=yes
+
+[Install]
+WantedBy=sysinit.target
