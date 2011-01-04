@@ -4,9 +4,7 @@ SCRIPTS  = arch-persistent-settings
 
 makedirs:
 	@install -vd ${DESTDIR}/lib/systemd/system/sysinit.target.wants \
-	             ${DESTDIR}/lib/systemd/system/shutdown.target.wants \
-		     ${DESTDIR}/lib/systemd/system/multi-user.target.wants \
-	             ${DESTDIR}/lib/systemd/system
+	             ${DESTDIR}/lib/systemd/system/shutdown.target.wants
 
 install: makedirs
 	@install -vm755 -t ${DESTDIR}/lib/systemd/ ${SCRIPTS}
@@ -18,5 +16,3 @@ install: makedirs
 	  ln -vsf ../depmod.service )
 	@( cd ${DESTDIR}/lib/systemd/system/shutdown.target.wants && \
 	  ln -vsf ../arch-persistent-settings.service )
-	@( cd ${DESTDIR}/lib/systemd/system/multi-user.target.wants && \
-	  ln -vsf ../rc-local.service )
