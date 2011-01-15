@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+# /lib/systemd/system-generators/arch-daemons
+
+. /etc/rc.conf
+
+# The first argument is the path to which the generated files should be written
+dest=$1
+
+# Make service file
+function start_daemon {
+cat <<EOF >$dest/$service
+[Unit]
+Description=Legacy unit for $1
+After=$2
+
+[Service]
+ExecStart=/etc/rc.d/$1 start
+ExecStop=/etc/rc.d/$1 stop
+RemainAfterExit=yes
+Type=forking
+EOF
+}
+
+/bin/mkdir -p $dest/arch-daemons.target.wants
+# Start daemons
+prev=""
+for daemon in "${DAEMONS[@]}"; do
+        if [ "$daemon" = "${daemon#!}" ]; then
+		service=$daemon.service
+                if [ "$daemon" = "${daemon#@}" ]; then
+                        start_daemon $daemon $prev $service
+			prev=$service
+                else
+                        start_daemon ${daemon:1} $prev $service
+                fi
+		/bin/ln -s ../$service $dest/arch-daemons.target.wants/$service
+        fi
+done
