@@ -30,7 +30,7 @@ EOF
 for daemon in "${DAEMONS[@]}"; do
   case ${daemon:0:1} in
     '!') continue ;;
-    '@') start_daemon ${daemon:1} $prev $service
+    '@') start_daemon ${daemon:1} $prev $service ;;
     *) start_daemon $daemon $prev $service
        prev=$service ;;
    esac
