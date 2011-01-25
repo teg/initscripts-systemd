@@ -11,28 +11,31 @@
 dest=$1
 
 # Make service file
-start_daemon() {
-cat > "$dest/$service" <<EOF
+create_unit() {
+  local daemon=${1%.service}
+
+  cat > "$dest/$1" <<EOF
 [Unit]
 Description=Legacy unit for $1
 After=$2
 
 [Service]
-ExecStart=/etc/rc.d/$1 start
-ExecStop=/etc/rc.d/$1 stop
+ExecStart=/etc/rc.d/$daemon start
+ExecStop=/etc/rc.d/$daemon stop
 RemainAfterExit=yes
 Type=forking
 EOF
 }
 
-/bin/mkdir -p $dest/arch-daemons.target.wants
-# Start daemons
+[[ -d $dest/arch-daemons.target.wants ]] || /bin/mkdir -p $dest/arch-daemons.target.wants
+
 for daemon in "${DAEMONS[@]}"; do
+  service="$daemon.service"
   case ${daemon:0:1} in
     '!') continue ;;
-    '@') start_daemon ${daemon:1} $prev $service ;;
-    *) start_daemon $daemon $prev $service
-       prev=$service ;;
+    '@') create_unit ${service:1} $dep ;;
+    *) create_unit $service $dep
+       dep=$service ;;
    esac
 
   /bin/ln -s ../${service#@} $dest/arch-daemons.target.wants/${service#@}
