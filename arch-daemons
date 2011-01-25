@@ -14,7 +14,7 @@ dest=$1
 create_unit() {
   local daemon=${1%.service}
 
-  cat > "$dest/$1" <<EOF
+  /bin/cat > "$dest/$1" <<EOF
 [Unit]
 Description=Legacy unit for $1
 After=$2
