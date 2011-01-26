@@ -7,29 +7,36 @@
 
 [[ $1 ]] || exit 1
 
-# The first argument is the path to which the generated files should be written
+# when called at boot, this is /dev/.systemd/generator-$rand
 dest=$1
 
 # Make service file
 create_unit() {
-echo "[Unit]"
-echo "Description=Legacy service for $1"
-echo "After=$2"
-echo "[Service]"
-echo "ExecStart=/etc/rc.d/$1 start"
-echo "ExecStop=/etc/rc.d/$1 stop"
-echo "RemainAfterExit=yes"
-echo "Type=forking"
+  local daemon=${1%.service}
+
+  printf "
+[Unit]
+Description=Legacy unit for $1
+After=$2
+
+[Service]
+ExecStart=/etc/rc.d/$daemon start
+ExecStop=/etc/rc.d/$daemon stop
+RemainAfterExit=yes
+Type=forking
+" > $dest/arch-daemons.target.wants/$1
+
 }
 
 [[ -d $dest/arch-daemons.target.wants ]] || /bin/mkdir -p $dest/arch-daemons.target.wants
 
 for daemon in "${DAEMONS[@]}"; do
+  service="$daemon.service"
   case ${daemon:0:1} in
     '!') continue ;;
-    '@') create_unit ${daemon:1} $dep > "$dest/arch-daemons.target.wants/${daemon:1}.service";;
-    *) create_unit $daemon $dep > "$dest/arch-daemons.target.wants/$daemon.service"
-       dep=$daemon.service ;;
+    '@') create_unit ${service:1} $dep ;;
+    *) create_unit $service $dep
+       dep=$service ;;
    esac
 done
 
