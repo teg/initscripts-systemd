@@ -1,0 +1,16 @@
+[Unit]
+Description=Assemble RAID arrays
+DefaultDependencies=no
+After=udev-settle.service
+Before=basic.target shutdown.target
+Conflicts=shutdown.target
+ConditionPathExists=/sbin/mdassemble
+
+[Service]
+ExecStart=/sbin/mdassemble --scan
+Type=oneshot
+TimeoutSec=0
+RemainAfterExit=true
+
+[Install]
+WantedBy=basic.target
