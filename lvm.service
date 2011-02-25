@@ -4,7 +4,6 @@ DefaultDependencies=no
 After=udev-settle.service mdadm.service
 Before=basic.target shutdown.target
 Conflicts=shutdown.target
-ConditionPathExists=/sbin/vgchange
 
 [Service]
 ExecStart=/sbin/vgchange --sysinit -a y
