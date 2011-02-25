@@ -1,7 +1,7 @@
 [Unit]
 Description=LVM activation
 DefaultDependencies=no
-After=udev-settle.service
+After=udev-settle.service mdadm.service
 Before=basic.target shutdown.target
 Conflicts=shutdown.target
 ConditionPathExists=/sbin/vgchange
