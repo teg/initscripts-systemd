@@ -5,9 +5,8 @@
 
 . /etc/rc.conf
 
-# Update timezone if: The timezone is set in rc.conf, the corresponding
-# zoneinfo file exists and rc.conf has been changed since the timezone was last
-# updated
+# Update timezone if: The timezone is set in rc.conf and the corresponding
+# zoneinfo file exists
 if [[ -n $TIMEZONE && -f /usr/share/zoneinfo/$TIMEZONE ]]; then
 	/bin/cp --remove-destination "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 fi
