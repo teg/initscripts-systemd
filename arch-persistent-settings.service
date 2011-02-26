@@ -8,7 +8,6 @@
 [Unit]
 Description=Apply Arch specific settings
 DefaultDependencies=no
-After=remount-rootfs.service
 Before=shutdown.target
 
 [Service]
