@@ -11,14 +11,6 @@ if [[ -n $TIMEZONE && -f /usr/share/zoneinfo/$TIMEZONE ]]; then
 	/bin/cp --remove-destination "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 fi
 
-# Adding persistent network/cdrom generated rules (this should probably be done
-# differently, upstream specifically recomends against relying on /dev/.udev)
-for rulesfile in 70-persistent-{cd,net}.rules; do
-	if [[ -f /dev/.udev/tmp-rules--$rulesfile ]]; then
-		/bin/cat /dev/.udev/tmp-rules--$rulesfile >> /etc/udev/rules.d/$rulesfile
-	fi
-done
-
 declare -a modules blacklist
 for mod in "${MODULES[@]}"; do
 	case $mod in
