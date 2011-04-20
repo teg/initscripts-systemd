@@ -8,9 +8,6 @@ Sequentially:
 2) LVM
 	TODO: Both RAID and LVM need testers. The tools do not support hotplugging, so we might need to add some more synchronisation points to avoid races
 
-Independently:
-nisdomainname: set domainname if the configuration file exists (TODO: can this be removed? what do other distros do?)
-
 rc.shutdown
 -----------
 arch-persistent-settings: parses and saves arch specific settings (e.g. rc.conf) in their respective distro independent places (rather than doing it on boot)
