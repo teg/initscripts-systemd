@@ -2,8 +2,8 @@
 Description=/etc/rc.local Compatibility
 
 [Service]
-ExecStart=/etc/rc.local
-ExecStop=/etc/rc.local.shutdown
+ExecStart=-/etc/rc.local
+ExecStop=-/etc/rc.local.shutdown
 TimeoutSec=0
 StandardInput=tty
 RemainAfterExit=yes
