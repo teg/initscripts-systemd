@@ -1,5 +1,5 @@
 [Unit]
-Description=LVM activation
+Description=Assemble FakeRAID arrays
 DefaultDependencies=no
 Requires=udev-settle.service
 After=udev-settle.service
@@ -7,10 +7,10 @@ Before=basic.target shutdown.target
 Conflicts=shutdown.target
 
 [Service]
-ExecStart=/sbin/vgchange --sysinit --available y
+ExecStart=/sbin/dmraid --ignorelocking --activate y
 Type=oneshot
 TimeoutSec=0
-RemainAfterExit=yes
+RemainAfterExit=true
 
 [Install]
 WantedBy=basic.target
