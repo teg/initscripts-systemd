@@ -7,7 +7,7 @@ Before=basic.target shutdown.target
 Conflicts=shutdown.target
 
 [Service]
-ExecStart=/sbin/dmraid -i -ay
+ExecStart=/sbin/dmraid --ignorelocking --activate y
 Type=oneshot
 TimeoutSec=0
 RemainAfterExit=true
