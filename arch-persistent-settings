@@ -8,6 +8,9 @@
 # update timezone if: The timezone is set in rc.conf and the corresponding
 # zoneinfo file exists
 if [[ -n $TIMEZONE && -f /usr/share/zoneinfo/$TIMEZONE ]]; then
+	# Note: it is probably better to delete the TIMEZONE var from your rc.conf to
+	# avoid this interfering with other tools (such as the GUI tools in KDE/GNOME/...)
+	# setting the timezone.
 	/bin/cp --remove-destination "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 fi
 
