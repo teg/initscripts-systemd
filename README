@@ -1,13 +1,12 @@
-Arch Linux initscripts, butchered to run with systemd. The obvious goal here
-is to let systemd do as much as possible.
+Unit files needed to make systemd a drop-in replacement for the traditional Arch Linux initscripts. The obvious goal here is to one day become obsolete.
 
 rc.sysinit
 ----------
 Sequentially:
-1) RAID
+1) FakeRAID (dmraid)
 2) LVM
-	TODO: Both RAID and LVM need testers. The tools do not support hotplugging, so we might need to add some more synchronisation points to avoid races
+	TODO: Both dmraid and lvm need testers. The tools do not support hotplugging, so we might need to add some more synchronisation points to avoid races.
 
 rc.shutdown
 -----------
-arch-persistent-settings: parses and saves arch specific settings (e.g. rc.conf) in their respective distro independent places (rather than doing it on boot)
+arch-persistent-settings: parses and saves arch specific settings (i.e. rc.conf) in their respective distro independent places (rather than doing it on boot)
