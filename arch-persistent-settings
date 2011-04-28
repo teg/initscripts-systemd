@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# /lib/systemd/arch-settings
+# /lib/systemd/arch-persistent-settings
 #
 
 . /etc/rc.conf
