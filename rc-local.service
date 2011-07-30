@@ -2,6 +2,7 @@
 Description=/etc/rc.local Compatibility
 
 [Service]
+Type=oneshot
 ExecStart=-/etc/rc.local
 ExecStop=-/etc/rc.local.shutdown
 TimeoutSec=0
