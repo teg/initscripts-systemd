@@ -1,5 +1,6 @@
 [Unit]
 Description=Save Arch specific settings
+ConditionPathExists=/etc/rc.conf
 DefaultDependencies=no
 Before=shutdown.target
 
