@@ -7,7 +7,7 @@
 
 [[ $1 ]] || exit 1
 
-# when called at boot, this is /dev/.systemd/generator-$rand
+# when called at boot, this is /run/systemd/generator-$rand
 dest=$1
 
 # Make service file
