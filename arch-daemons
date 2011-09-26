@@ -7,24 +7,27 @@
 
 [[ $1 ]] || exit 1
 
-# when called at boot, this is /dev/.systemd/generator-$rand
+# when called at boot, this is /run/systemd/generator-$rand
 dest=$1
+
+# list of services that have to be started before the next one
+dep=()
 
 # Make service file
 create_unit() {
-  local daemon=${1%.service}
+  local daemon=${1%.service} deps=${dep[@]}
 
   printf "
 [Unit]
-Description=Legacy unit for $1
-After=$2
+Description=Legacy unit for %s
+After=%s
 
 [Service]
-ExecStart=/etc/rc.d/$daemon start
-ExecStop=/etc/rc.d/$daemon stop
+ExecStart=/etc/rc.d/%s start
+ExecStop=/etc/rc.d/%s stop
 RemainAfterExit=yes
 Type=forking
-" > $dest/arch-daemons.target.wants/$1
+" "$1" "$deps" "$daemon" "$daemon" > $dest/arch-daemons.target.wants/$1
 
 }
 
@@ -34,9 +37,9 @@ for daemon in "${DAEMONS[@]}"; do
   service="$daemon.service"
   case ${daemon:0:1} in
     '!') continue ;;
-    '@') create_unit ${service:1} $dep ;;
-    *) create_unit $service $dep
-       dep=$service ;;
+    '@') create_unit ${service:1} ;;
+    *) create_unit $service
+       dep+=("$service") ;;
    esac
 done
 
