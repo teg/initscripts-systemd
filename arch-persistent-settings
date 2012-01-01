@@ -11,7 +11,7 @@ if [[ -n $TIMEZONE && -f /usr/share/zoneinfo/$TIMEZONE ]]; then
 	# Note: it is probably better to delete the TIMEZONE var from your rc.conf to
 	# avoid this interfering with other tools (such as the GUI tools in KDE/GNOME/...)
 	# setting the timezone.
-	if [[ -L /etc/localtime ]]; then
+	if [[ -L /etc/localtime && ! /etc/localtime -ef /usr/share/zoneinfo/$TIMEZONE]]; then
 		ln -sf "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 	else
 		cp --remove-destination "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
