@@ -1,13 +1,13 @@
 SERVICES   = ${wildcard *.service}
 TARGETS    = ${wildcard *.target}
-SCRIPTS    = arch-persistent-settings
+SCRIPTS    = arch-modules-load
 GENERATORS = arch-daemons
 
 makedirs:
-	@install -vd ${DESTDIR}/lib/systemd/system-generators \
-	             ${DESTDIR}/lib/systemd/system
+	@install -vd ${DESTDIR}/usr/lib/systemd/system-generators \
+	             ${DESTDIR}/usr/lib/systemd/system
 
 install: makedirs
-	@install -vm755 -t ${DESTDIR}/lib/systemd/ ${SCRIPTS}
-	@install -vm755 -t ${DESTDIR}/lib/systemd/system-generators/ ${GENERATORS}
-	@install -vm644 -t ${DESTDIR}/lib/systemd/system ${SERVICES} ${TARGETS}
+	@install -vm755 -t ${DESTDIR}/usr/lib/systemd/ ${SCRIPTS}
+	@install -vm755 -t ${DESTDIR}/usr/lib/systemd/system-generators/ ${GENERATORS}
+	@install -vm644 -t ${DESTDIR}/usr/lib/systemd/system ${SERVICES} ${TARGETS}
