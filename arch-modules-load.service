@@ -4,7 +4,7 @@ DefaultDependencies=no
 Before=systemd-modules-load.service
 
 [Service]
-ExecStart=/lib/systemd/arch-modules-load
+ExecStart=/usr/lib/systemd/arch-modules-load
 Type=oneshot
 
 [Install]
