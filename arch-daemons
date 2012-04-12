@@ -15,20 +15,20 @@ deps=()
 
 # Make service file
 create_unit() {
-  local daemon=${1%.service}; shift
-  local deps=$*
+  local deps= daemon=${1%.service}
 
-  printf "
-[Unit]
+  (( $# > 1 )) && printf -v deps 'After=%s\n' "${*:2}"
+
+  printf \
+'[Unit]
 Description=Legacy unit for %s
-After=%s
-
+%s
 [Service]
 ExecStart=/etc/rc.d/%s start
 ExecStop=/etc/rc.d/%s stop
 RemainAfterExit=yes
 Type=forking
-" "$1" "$deps" "$daemon" "$daemon" > "$dest/arch-daemons.target.wants/$1"
+' "$daemon" "$deps" "$daemon" "$daemon" > "$dest/arch-daemons.target.wants/$1"
 
 }
 
