@@ -4,6 +4,5 @@ The goal is to one day become obsolete.
 
 Functionality
 -------------
-1) arch-load-modules.service: parses rc.conf for the modules to be loaded at boot and saves the list where systemd-load-modules will find it.
-2) arch-daemons.target: starts the daemons listed in rc.conf, preserving ordering and using rc scripts if no native systemd unit with the same name is found.
-3) rc-local{,-shutdown}.service: compatibility with the legacy scripts.
+1) arch-daemons.target: starts the daemons listed in rc.conf, preserving ordering and using rc scripts if no native systemd unit with the same name is found.
+2) rc-local{,-shutdown}.service: compatibility with the legacy scripts.
