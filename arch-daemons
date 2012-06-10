@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# /lib/systemd/system-generators/arch-daemons
+# /usr/lib/systemd/system-generators/arch-daemons
 #
 
 . /etc/rc.conf
