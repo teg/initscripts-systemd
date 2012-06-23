@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# /lib/systemd/system-generators/arch-daemons
+# /usr/lib/systemd/system-generators/arch-daemons
 #
 
 . /etc/rc.conf
@@ -28,9 +28,13 @@ ExecStart=/etc/rc.d/%s start
 ExecStop=/etc/rc.d/%s stop
 RemainAfterExit=yes
 Type=forking
-' "$daemon" "$deps" "$daemon" "$daemon" > "$dest/arch-daemons.target.wants/$1"
+' "$daemon" "$deps" "$daemon" "$daemon" > "$dest/$1"
 
 }
+
+for daemon in /etc/rc.d/*; do
+  create_unit "${daemon##*/}".service
+done
 
 [[ -d $dest/arch-daemons.target.wants ]] || /bin/mkdir -p "$dest/arch-daemons.target.wants"
 
@@ -38,9 +42,13 @@ for daemon in "${DAEMONS[@]}"; do
   service="$daemon.service"
   case ${daemon:0:1} in
     '!') continue ;;
-    '@') create_unit "${service:1}" "${deps[@]}" ;;
+    '@') create_unit "${service:1}" "${deps[@]}"
+         ln -s "../${service:1}" "$dest/arch-daemons.target.wants"
+        ;;
     *) create_unit "$service" "${deps[@]}"
-       deps+=("$service") ;;
+       deps+=("$service")
+       ln -s "../$service" "$dest/arch-daemons.target.wants"
+      ;;
    esac
 done
 
