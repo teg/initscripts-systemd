@@ -1,5 +1,0 @@
-[Unit]
-Description=Legacy Arch Daemons
-
-[Install]
-WantedBy=multi-user.target
