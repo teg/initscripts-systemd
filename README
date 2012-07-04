@@ -3,7 +3,25 @@ Unit files needed to make systemd a drop-in replacement for the traditional Arch
 The goal is to one day become obsolete.
 
 Functionality
--------------
-1) arch-load-modules.service: parses rc.conf for the modules to be loaded at boot and saves the list where systemd-load-modules will find it.
-2) arch-daemons.target: starts the daemons listed in rc.conf, preserving ordering and using rc scripts if no native systemd unit with the same name is found.
-3) rc-local{,-shutdown}.service: compatibility with the legacy scripts.
+=============
+
+arch-load-modules.service
+-------------------------
+
+Parses rc.conf for the modules to be loaded at boot and saves the list where
+systemd-load-modules will find it.
+
+arch-daemons generator
+----------------------
+
+Creates a systemd unit for every rc script in /etc/rc.d. These will be only
+used as fallback, if no native service file exists. Furthermore, if a daemon
+is enabled in rc.conf, it will be pulled in by multi-user.target. If no native
+systemd service exists for this daemon, the ordering indicated in rc.conf
+will be respected.
+
+
+rc-local{,-shutdown}.service
+----------------------------
+
+Runs these legacy scripts at boot/shutdown, respectively.
