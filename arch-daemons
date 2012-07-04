@@ -21,6 +21,8 @@ create_unit() {
 
   printf \
 '[Unit]
+SourcePath=/etc/rc.conf
+Documentation=https://raw.github.com/falconindy/initscripts-systemd/master/README
 Description=Legacy unit for %s
 %s
 [Service]
