@@ -9,7 +9,7 @@ arch-load-modules.service
 -------------------------
 
 Parses rc.conf for the modules to be loaded at boot and saves the list where
-systemd-load-modules will find it.
+systemd-load-modules will find it under /run.
 
 arch-daemons generator
 ----------------------
@@ -24,4 +24,4 @@ will be respected.
 rc-local{,-shutdown}.service
 ----------------------------
 
-Runs these legacy scripts at boot/shutdown, respectively.
+Runs these legacy scripts at boot and shutdown, respectively.
