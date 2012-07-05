@@ -8,6 +8,3 @@ Before=systemd-modules-load.service
 [Service]
 ExecStart=/usr/lib/systemd/arch-modules-load
 Type=oneshot
-
-[Install]
-WantedBy=sysinit.target
